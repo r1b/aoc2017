@@ -1,11 +1,27 @@
 use std::io::{BufRead, Cursor};
 
-pub fn checksum(input: &'static str) -> u32 {
+pub fn checksum(input: &'static str, star: usize) -> u32 {
     let table: Vec<Vec<u32>> = read_table(input);
     let mut checksum: u32 = 0;
+    let checksum_fn: fn(&Vec<u32>) -> u32 = match star {
+        1 => |row: &Vec<u32>| -> u32 {
+            row.iter().max().unwrap() - row.iter().min().unwrap()
+        },
+        2 => |row: &Vec<u32>| -> u32 {
+            for a in row {
+                for b in row {
+                    if a != b && a % b == 0 {
+                        return a / b;
+                    }
+                }
+            }
+            return 0;
+        },
+        _ => panic!("idk"),
+    };
 
     for row in table {
-        checksum += row.iter().max().unwrap() - row.iter().min().unwrap();
+        checksum += checksum_fn(&row);
     }
 
     checksum
