@@ -1,6 +1,6 @@
 use std::io::{BufRead, Cursor};
 
-pub fn count_steps(input: &'static str) -> u32 {
+pub fn count_steps(input: &'static str, star: u32) -> u32 {
     let mut instructions: Vec<i32> = read_instructions(input);
     let mut ip: i32 = 0;
     let mut steps: u32 = 0;
@@ -10,7 +10,11 @@ pub fn count_steps(input: &'static str) -> u32 {
             Some(&opcode) => opcode,
             None => { break; }
         };
-        instructions[ip as usize] += 1;
+        instructions[ip as usize] += match star {
+            1 => 1,
+            2 => if instructions[ip as usize] >= 3 { -1 } else { 1 },
+            _ => panic!("yah")
+        };
         ip += instruction;
         steps += 1;
     }
