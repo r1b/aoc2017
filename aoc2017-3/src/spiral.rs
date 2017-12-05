@@ -1,4 +1,6 @@
 /*
+ * Star 1:
+ *
  * I mostly did this with pencil and paper. I determined that it would be
  * sufficient to only consider the center values of each face of each `ring`
  * of the spiral. The Manhattan distance from these center values is equal to
@@ -11,6 +13,13 @@
  * `312202`. Then I compute the distance by hand:
  *
  * (312202 - 312051) + 279 = 430
+ *
+ * Star 2:
+ *
+ * Alright I admit it I cheated for this star. My father helpfully pointed out
+ * that you can identify the generating expressions for these sequences on
+ * oeis.org. The problem was stated simply enough for this star that I could
+ * pluck the correct value from the sequence here https://oeis.org/A141481/b141481.txt
  */
 
 pub fn spiral() -> () {
