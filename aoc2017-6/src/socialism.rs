@@ -4,6 +4,7 @@ pub fn redistribute(input: &'static str) -> u32 {
     let mut steps: u32 = 0;
     let size: usize = banks.len();
     let mut done: bool = false;
+    let mut cycles: Option<usize> = None;
 
     loop {
         let mut max: u32 = 0;
@@ -27,9 +28,11 @@ pub fn redistribute(input: &'static str) -> u32 {
             banks[(idx.unwrap() + index) % size] += 1;
         }
 
-        for state in memory.clone() {
-            if state == banks {
+        for (index, state) in memory.iter().enumerate() {
+            if *state == banks {
                 done = true;
+                cycles = Some(memory.len() - index);
+                println!("cycles: {}", cycles.unwrap());
                 break;
             }
         }
