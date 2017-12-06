@@ -3,7 +3,6 @@ pub fn redistribute(input: &'static str) -> u32 {
     let mut memory: Vec<Vec<u32>> = Vec::new();
     let mut steps: u32 = 0;
     let size: usize = banks.len();
-    let mut done: bool = false;
     let mut cycles: Option<usize> = None;
 
     loop {
@@ -30,18 +29,12 @@ pub fn redistribute(input: &'static str) -> u32 {
 
         for (index, state) in memory.iter().enumerate() {
             if *state == banks {
-                done = true;
                 cycles = Some(memory.len() - index);
                 println!("cycles: {}", cycles.unwrap());
-                break;
+                return steps
             }
         }
-        if done {
-            break;
-        }
     }
-
-    steps
 }
 
 fn read_banks(input: &'static str) -> Vec<u32> {
