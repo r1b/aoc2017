@@ -12,9 +12,9 @@ pub fn redistribute(input: &'static str) -> u32 {
         memory.push(banks.clone()); // matthias i can hear you screaming but i swear i need to
         steps +=1;
 
-        for (index, &value) in banks.iter().enumerate() {
-            if value > max {
-                max = value;
+        for (index, value) in banks.iter().enumerate() {
+            if *value > max {
+                max = *value;
                 idx = Some(index);
             }
         }
