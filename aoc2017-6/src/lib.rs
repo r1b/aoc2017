@@ -9,6 +9,6 @@ mod tests {
     }
     #[test]
     fn star_1_for_real() {
-        assert_eq!(redistribute("10 3   15  10  5   15  5   15  9   2   5   8   5   2   3   6"), 5);
+        assert_eq!(redistribute("10 3   15  10  5   15  5   15  9   2   5   8   5   2   3   6"), 14029);
     }
 }
