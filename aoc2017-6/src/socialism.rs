@@ -10,7 +10,7 @@ pub fn redistribute(input: &'static str) -> u32 {
         let mut max: u32 = 0;
         let mut idx: Option<usize> = None;
 
-        memory.push(banks.clone());
+        memory.push(banks.clone()); // matthias i can hear you screaming but i swear i need to
         steps +=1;
 
         for (index, &value) in banks.iter().enumerate() {
