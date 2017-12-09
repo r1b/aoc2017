@@ -1,5 +1,5 @@
 use std::collections::HashMap;
-use std::collections::hash_map::Drain;
+use std::collections::hash_map::{Drain, Iter};
 use std::io::{BufRead, Cursor};
 use regex::Regex;
 
@@ -42,10 +42,12 @@ impl Registers {
         self.registers.drain()
     }
 
-
-
     pub fn init_reg(&mut self, register: String) -> () {
         self.registers.entry(register).or_insert(0);
+    }
+
+    pub fn iter(&mut self) -> Iter<String, i32> {
+        self.registers.iter()
     }
 
     pub fn reg_value(&self, register: String) -> &i32 {
@@ -100,7 +102,7 @@ impl Routine {
     }
 }
 
-pub fn max_reg_value(input: &'static str) -> i32 {
+pub fn highest_ever(input: &'static str) -> i32 {
     let mut maximum = None;
     let mut registers = Registers::new();
     let routines = parse_input(input);
@@ -109,14 +111,13 @@ pub fn max_reg_value(input: &'static str) -> i32 {
     for routine in routines {
         registers.init_reg(routine.register.clone());
         registers.init_reg(routine.condition.register.clone());
+
         let new_value = routine.execute(&registers);
         registers.update_reg(routine.register.clone(), new_value);
-    }
 
-    for (_, value) in registers.drain() {
         maximum = Some(match maximum {
-            Some(max) => if value > max { value } else { max },
-            None =>  value
+            Some(max) => if new_value > max { new_value } else { max },
+            None =>  new_value
         });
     }
 
