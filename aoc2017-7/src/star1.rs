@@ -3,18 +3,11 @@ use std::io::{BufRead, Cursor};
 use regex::Regex;
 
 // We can reduce the problem to: what is the name of a non-leaf node
-// on the lhs that does not appear in any parents on the lhs
+// on the lhs that does not appear in any parents on the lhs.
 
 pub fn bottom(input: &'static str) -> String {
     let (nodes, parents) = parse_tree(input);
-
-    for node in nodes {
-        if !parents.contains(&node) {
-            return node;
-        }
-    }
-
-    String::from("")
+    nodes.difference(&parents).cloned().next().unwrap()
 }
 
 fn parse_tree(input: &'static str) -> (HashSet<String>, HashSet<String>) {
